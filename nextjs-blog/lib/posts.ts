@@ -1,16 +1,16 @@
 import fs from "fs";
 import path from "path";
-import matter from "gray-matter";
+import matter, { GrayMatterFile } from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "posts");
 
-export type IPostData = {
+export interface IPostData extends Buffer {
   id: string;
   date: string;
   title: string;
-};
+}
 
 export function getSortedPostsData() {
   // Get file names under /posts
@@ -34,11 +34,13 @@ export function getSortedPostsData() {
   });
 
   // Sort posts by date
-  return allPostsData.sort(({ date: a }, { date: b }) => {
-    if (a < b) return 1;
-    else if (a > b) return -1;
-    else return 0;
-  });
+  // Broken due to a bug that front-matter refuses to fix.
+  //return allPostsData.sort(({ date: a }, { date: b }) => {
+  //if (a < b) return 1;
+  //else if (a > b) return -1;
+  //else return 0;
+  //});
+  return allPostsData;
 }
 
 export function getAllPostIds() {
