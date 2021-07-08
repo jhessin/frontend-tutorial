@@ -1,4 +1,3 @@
-import { PropsWithChildren } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/layout.module.css";
@@ -10,9 +9,10 @@ export const siteTitle = "Next.js Sample Website";
 
 interface Props {
   home?: boolean;
+  children: React.ReactNode;
 }
 
-export default function Layout({ children, home }: PropsWithChildren<Props>) {
+export default function Layout({ children, home }: Props) {
   return (
     <div className={styles.container}>
       <Head>

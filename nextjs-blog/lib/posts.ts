@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import matter, { GrayMatterFile } from "gray-matter";
+import matter from "gray-matter";
 import remark from "remark";
 import html from "remark-html";
 
@@ -30,17 +30,21 @@ export function getSortedPostsData() {
     return {
       id,
       ...matterResult.data,
-    };
+    } as IPostData;
   });
 
   // Sort posts by date
   // Broken due to a bug that front-matter refuses to fix.
-  //return allPostsData.sort(({ date: a }, { date: b }) => {
-  //if (a < b) return 1;
-  //else if (a > b) return -1;
-  //else return 0;
+  return allPostsData.sort(({ date: a }, { date: b }) => {
+    if (a < b) return 1;
+    else if (a > b) return -1;
+    else return 0;
+  });
+  //return allPostsData.sort((a, b) => {
+  //if (a.date < b.date) {
+  //return 1;
+  //} else return -1;
   //});
-  return allPostsData;
 }
 
 export function getAllPostIds() {
